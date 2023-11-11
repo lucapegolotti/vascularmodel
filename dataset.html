@@ -30,6 +30,89 @@
 
     gtag('config', 'G-YVVR1546XJ');
   </script>
+
+<!-- MICROSCAPE FUNCTIONALITY -->
+  <script>
+      function send(message) {
+        const iframe = document.querySelector("#game-window");
+        iframe.contentWindow.postMessage(message, "*");
+      }
+
+      function sendMessage(event, value) {
+        const message = {
+            "type": event,
+            "value": value
+        }
+        send(message);
+      }
+
+      function toogleChannel(cb, channel) {
+        const message = {
+            "type": "TOGGLE_CHANNEL",
+            "value": channel + "|" + cb.checked
+        }
+        send(message);
+      }
+
+      function updateChannelAlpha(value, channel) {
+        const message = {
+            "type": "UPDATE_ALPHA",
+            "value": channel + "|" + value
+        }
+        send(message);
+      }
+
+      function updateChannelColor(target, channel) {
+        var color = target.value;
+        const r = parseInt(color.substr(1,2), 16);
+        const g = parseInt(color.substr(3,2), 16);
+        const b = parseInt(color.substr(5,2), 16);
+        const message = {
+            "type": "UPDATE_COLOR",
+            "value": channel + "|" + r + "|" + g + "|" + b
+        }
+        console.log(message);
+        send(message);
+      }
+
+      function setAtlasNumber(event) {
+        let atlasNumber = document.getElementById("atlas-number");
+        var number = atlasNumber.value;
+
+        let atlasColor = document.getElementById("atlas-color");
+        var color = atlasColor.value;
+
+        const r = parseInt(color.substr(1,2), 16);
+        const g = parseInt(color.substr(3,2), 16);
+        const b = parseInt(color.substr(5,2), 16);
+        const message = {
+            "type": "SET_ATLAS_NUMBER",
+            "value": number + "|" + r + "|" + g + "|" + b
+        }
+        console.log(message);
+        send(message);
+      }
+
+      document.getElementById("atlas-number").addEventListener("input", setAtlasNumber);
+      document.getElementById("atlas-color").addEventListener("change", setAtlasNumber);
+
+      function setResolution(resolution) {
+        const message = {
+            "type": "SET_RESOLUTION",
+            "value": parseInt(resolution)
+        }
+        console.log(message);
+        send(message);
+      }
+
+      document.getElementById("project").addEventListener("input", updateProject);
+  
+        function updateProject(event){
+        }
+      
+    </script>
+<!-- MICROSCAPE FUNCTIONALITY -->
+
 </head>
 <body class="body">
 
@@ -350,8 +433,9 @@
         <div id ="safeOfOverlayClick">
           <p id="3Dmodal-greeting">Placeholder</p>
           <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-          <iframe src="http://vascularmodelrepository.s3-website-us-east-1.amazonaws.com/" width="100%" height="600px" style="position: relative; z-index:10;">
-          </iframe>
+          <!--<iframe src="http://vascularmodelrepository.s3-website-us-east-1.amazonaws.com/" width="100%" height="600px" style="position: relative; z-index:10;">
+          </iframe>-->
+          <iframe id="game-window" src="http://thien-test-iframe.s3-website-us-east-1.amazonaws.com/index.html?project=0001_h_ao_svd" width="100%" height="600px" style="position: relative; z-index:10;" frameborder="0"></iframe>
           <div id="modal-closure" style="margin-bottom:10px;"><a href="http://www.microscape.xyz">www.microscape.xyz</a></div>
         </div> 
         <div class="row">

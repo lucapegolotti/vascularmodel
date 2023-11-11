@@ -303,6 +303,13 @@ function threeDEmbed(data)
   //sets global var viewingModel
   viewingModel = data;
 
+  let iframe = document.getElementById("game-window");
+  let input = event.target;
+  let newProject = input.value;
+  
+  iframe,src="http://thien-test-iframe.s3-website-us-east-1.amazonaws.com/index.html?project=0001_h_ao_svd"
+  //iframe.src = "/?project=" + newProject;
+
   //modal's first line
   $('#3Dmodal-greeting')[0].innerText = 'You are viewing ' + data['Name'] + '.\nHere is the 3D visualization:'
 
@@ -538,7 +545,7 @@ function generateContent(modelData) {
   //creates ID for hook to open modalDialog
   detailsImg.setAttribute("id",modelData['Name'] + "_details");
 
-  if(modelData['Name'] == "0005_1001"){
+  
     let microscapeButton = document.createElement("i");
     microscapeButton.classList.add("microscape-button");
     //microscapeButton.href = "http://vascularmodelrepository.s3-website-us-east-1.amazonaws.com/";
@@ -555,7 +562,7 @@ function generateContent(modelData) {
     divModelImage.appendChild(microscapeButton);
     microscapeButton.appendChild(mcpImg);
     microscapeButton.appendChild(mcpImgHover);
-  }
+
   
   //creates image of model
   let innerImg = document.createElement("img");
